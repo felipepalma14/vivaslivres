@@ -1,0 +1,76 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
+}
+
+android {
+    compileSdkVersion (BuildVersions.compileSdkVersion)
+    buildToolsVersion (BuildVersions.buildToolsVersion)
+
+    defaultConfig {
+        applicationId App.applicationId
+        minSdkVersion BuildVersions.minSdkVersion
+        targetSdkVersion BuildVersions.targetSdkVersion
+        versionCode BuildVersions.versionCode
+        versionName BuildVersions.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation Libs.kotlinStdlib
+    implementation Libs.coreKtx
+    implementation Libs.appCompat
+    implementation Libs.material
+    implementation Libs.constraintLayout
+    implementation Libs.coroutinesAndroid
+    implementation Libs.coroutinesCore
+
+
+    implementation Libs.interceptor
+    implementation Libs.swipeRefresh
+    implementation Libs.lifecycle
+    implementation Libs.lifecycleKtx
+    implementation Libs.lifecycleLiveData
+    implementation Libs.lifecycleCommon
+    implementation Libs.viewmodel
+    implementation Libs.retrofit
+    implementation Libs.gsonConverter
+    implementation Libs.navigationFragment
+    implementation Libs.navigationKtx
+    implementation Libs.recyclerView
+
+    implementation Libs.roomRuntime
+    implementation Libs.roomKtx
+    kapt Libs.roomCompiler
+
+    implementation Libs.hiltAndroid
+    implementation Libs.hiltViewmodel
+    kapt Libs.hiltCompiler
+    kapt Libs.hiltCompilerViewmodel
+
+
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}

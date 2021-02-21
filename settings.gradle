@@ -1,0 +1,3 @@
+include ':libraries:core'
+include ':app'
+rootProject.name = "Vivas e Livres"
