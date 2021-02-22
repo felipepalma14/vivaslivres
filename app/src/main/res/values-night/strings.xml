@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_profile">Perfil</string>
+    <string name="menu_messages">Mensagens</string>
+    <string name="menu_alerts">Alertas</string>
+    <string name="menu_about_us">Sobre Nós</string>
+</resources>

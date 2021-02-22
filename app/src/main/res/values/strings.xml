@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Vivas e Livres</string>
+    <string name="menu_profile">Perfil</string>
+    <string name="menu_messages">Mensagens</string>
+    <string name="menu_alerts">Alertas</string>
+    <string name="menu_about_us">Sobre Nós</string>
 </resources>

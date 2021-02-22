@@ -20,6 +20,9 @@ object Version {
     const val hilt = "2.28-alpha"
     const val hiltViewModel = "1.0.0-alpha02"
     const val firebaseBoom = "26.5.0"
+    const val coroutinePlayServices = "1.1.1"
+    const val timber = "4.7.1"
+    const val kotlinxSerialization = "1.0.0"
 }
 
 
@@ -61,7 +64,18 @@ object Libs {
     const val roomKtx =  "androidx.room:room-ktx:${Version.roomVersion}"
     const val roomCompiler  =  "androidx.room:room-compiler:${Version.roomVersion}"
 
+    const val timber =  "com.jakewharton.timber:timber:${Version.timber}"
+
+    const val kotlinxSerialization =  "org.jetbrains.kotlinx:kotlinx-serialization-json:${Version.kotlinxSerialization}"
+
+    const val coroutinesPlayServices =  "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${Version.coroutinePlayServices}"
     //firebase
     const val firebaseBoom  = "com.google.firebase:firebase-bom:${Version.firebaseBoom}"
     const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx"
+    const val firebaseAuth =  "com.google.firebase:firebase-auth-ktx"
+    const val firebaseFirestore = "com.google.firebase:firebase-firestore-ktx"
+    const val firebaseStorage =  "com.google.firebase:firebase-storage-ktx"
+    const val firebaseMessage = "com.google.firebase:firebase-messaging-ktx"
+    const val firebaseCrash =  "com.google.firebase:firebase-crashlytics-ktx"
+    const val firebaseDatabase = "com.google.firebase:firebase-database-ktx"
 }

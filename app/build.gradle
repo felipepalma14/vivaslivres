@@ -17,7 +17,7 @@ android {
         targetSdkVersion BuildVersions.targetSdkVersion
         versionCode BuildVersions.versionCode
         versionName BuildVersions.versionName
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -26,6 +26,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    buildFeatures {
+        dataBinding true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -46,29 +49,23 @@ dependencies {
     implementation Libs.coroutinesAndroid
     implementation Libs.coroutinesCore
 
-
-    implementation Libs.interceptor
-    implementation Libs.swipeRefresh
     implementation Libs.lifecycle
     implementation Libs.lifecycleKtx
     implementation Libs.lifecycleLiveData
     implementation Libs.lifecycleCommon
     implementation Libs.viewmodel
-    implementation Libs.retrofit
-    implementation Libs.gsonConverter
     implementation Libs.navigationFragment
     implementation Libs.navigationKtx
-    implementation Libs.recyclerView
 
-    implementation Libs.roomRuntime
-    implementation Libs.roomKtx
-    kapt Libs.roomCompiler
+    implementation Libs.timber
 
     implementation Libs.hiltAndroid
     implementation Libs.hiltViewmodel
     kapt Libs.hiltCompiler
     kapt Libs.hiltCompilerViewmodel
 
+    implementation project(":features:authentication")
+    implementation project(":libraries:core")
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
