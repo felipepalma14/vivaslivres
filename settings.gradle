@@ -1,5 +1,4 @@
-include ':features:authentication'
-include ':libraries:authentication'
-include ':libraries:core'
+include ':domain'
+include ':data'
 include ':app'
 rootProject.name = "Vivas e Livres"

@@ -10,7 +10,7 @@ object Version {
     const val swiperefresh = "1.1.0"
     const val material = "1.2.1"
     const val interceptor = "4.8.1"
-    const val retrofit = "2.9.0"
+    const val phoneNumber = "8.12.11"
     const val lifecycle = "2.2.0"
     const val picasso = "2.71828"
     const val sharedPreference = "1.1.1"
@@ -23,11 +23,13 @@ object Version {
     const val coroutinePlayServices = "1.1.1"
     const val timber = "4.7.1"
     const val kotlinxSerialization = "1.0.0"
+    const val fragmentKtx = "1.2.5"
 }
 
 
 object Libs {
-
+// Kotlink
+    const val fragmentKtx =  "androidx.fragment:fragment-ktx:${Version.fragmentKtx}"
     const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Version.navigation}"
     const val navigationKtx = "androidx.navigation:navigation-ui-ktx:${Version.navigation}"
     const val picasso = "com.squareup.picasso:picasso:${Version.picasso}"
@@ -50,9 +52,7 @@ object Libs {
     const val constraintLayout =  "androidx.constraintlayout:constraintlayout:${Version.constraintLayout}"
     const val recyclerView =  "androidx.recyclerview:recyclerview:${Version.recyclerViewVersion}"
 
-    //Networking
-    const val retrofit = "com.squareup.retrofit2:retrofit:${Version.retrofit}"
-    const val gsonConverter = "com.squareup.retrofit2:converter-gson:${Version.retrofit}"
+    const val phoneNumber = "com.googlecode.libphonenumber:libphonenumber:${Version.phoneNumber}"
 
     //DI Hilt
     const val hiltAndroid  = "com.google.dagger:hilt-android:${Version.hilt}"

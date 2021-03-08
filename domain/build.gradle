@@ -1,10 +1,6 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
-    id 'dagger.hilt.android.plugin'
-    id 'kotlin-kapt'
-    id 'com.google.gms.google-services'
 }
 
 android {
@@ -12,13 +8,14 @@ android {
     buildToolsVersion (BuildVersions.buildToolsVersion)
 
     defaultConfig {
-        applicationId App.applicationId
+
         minSdkVersion BuildVersions.minSdkVersion
         targetSdkVersion BuildVersions.targetSdkVersion
         versionCode BuildVersions.versionCode
         versionName BuildVersions.versionName
-        multiDexEnabled true
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -27,44 +24,27 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    buildFeatures {
-        dataBinding true
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+
     }
 }
 
 dependencies {
-    implementation project(":domain")
     implementation Libs.kotlinStdlib
     implementation Libs.coreKtx
-    implementation Libs.appCompat
-    implementation Libs.material
-    implementation Libs.constraintLayout
     implementation Libs.coroutinesAndroid
     implementation Libs.coroutinesCore
-    implementation Libs.fragmentKtx
-
-    implementation Libs.lifecycle
-    implementation Libs.lifecycleKtx
-    implementation Libs.lifecycleLiveData
-    implementation Libs.lifecycleCommon
-    implementation Libs.viewmodel
-    implementation Libs.navigationFragment
-    implementation Libs.navigationKtx
-
+    
     implementation Libs.timber
-    implementation Libs.phoneNumber
 
-    implementation Libs.hiltAndroid
-    implementation Libs.hiltViewmodel
-    kapt Libs.hiltCompiler
-    kapt Libs.hiltCompilerViewmodel
+    implementation platform(Libs.firebaseBoom)
+    implementation Libs.firebaseFirestore
+    implementation Libs.firebaseAuth
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

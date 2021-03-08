@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_authentication"
+    app:startDestination="@id/destination_fragment_login">
+
+    <fragment
+        android:id="@+id/destination_fragment_login"
+        android:name="com.felipepalma14.vivaselivres.ui.login.view.LoginFragment"
+        android:label="@string/authentication_label_login"
+        tools:layout="@layout/fragment_login" >
+
+        <action
+            android:id="@+id/action_login_to_verify"
+            app:destination="@id/destination_fragment_verify" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/destination_fragment_verify"
+        android:name="com.felipepalma14.vivaselivres.ui.login.view.VerifyPhoneFragment"
+        android:label="fragment_verify"
+        tools:layout="@layout/fragment_verify_phone">
+        <action
+            android:id="@+id/action_verify_to_profile"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/navigation_authentication"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
