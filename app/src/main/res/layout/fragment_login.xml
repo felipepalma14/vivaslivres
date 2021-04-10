@@ -70,6 +70,8 @@
                             android:background="@android:color/transparent"
                             android:fontFamily="@font/font_semi"
                             android:inputType="number"
+                            android:maxLength="12"
+                            android:maxEms="12"
                             android:padding="10dp"
                             android:text="@={viewmodel.mobile}"
                             android:textColor="@color/colorBlack"

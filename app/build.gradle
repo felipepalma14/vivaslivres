@@ -41,6 +41,7 @@ android {
 
 dependencies {
     implementation project(":domain")
+    implementation project(":data")
     implementation Libs.kotlinStdlib
     implementation Libs.coreKtx
     implementation Libs.appCompat
@@ -65,6 +66,10 @@ dependencies {
     implementation Libs.hiltViewmodel
     kapt Libs.hiltCompiler
     kapt Libs.hiltCompilerViewmodel
+
+    //firebase
+    implementation Libs.firebaseAuth
+    implementation "androidx.browser:browser:1.3.0"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

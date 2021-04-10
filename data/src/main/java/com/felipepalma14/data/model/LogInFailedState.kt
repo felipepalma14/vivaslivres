@@ -1,4 +1,4 @@
-package com.felipepalma14.domain.model
+package com.felipepalma14.data.model
 
 enum class LogInFailedState {
     Verification,

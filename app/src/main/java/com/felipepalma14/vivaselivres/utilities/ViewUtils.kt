@@ -3,11 +3,17 @@ package com.felipepalma14.vivaselivres.utilities
 import android.app.Activity
 import android.view.View
 import android.widget.ProgressBar
+import androidx.navigation.NavController
 import com.felipepalma14.vivaselivres.R
 import com.felipepalma14.vivaselivres.extension.gone
 import com.felipepalma14.vivaselivres.extension.show
 import com.felipepalma14.vivaselivres.ui.custom.CustomProgressView
 import com.google.android.material.snackbar.Snackbar
+
+
+fun NavController.isValidDestination(destination: Int): Boolean {
+    return destination == this.currentDestination!!.id
+}
 
 fun snack(context: Activity, msg: String){
     Snackbar.make(context.findViewById(android.R.id.content),msg,2000).show()

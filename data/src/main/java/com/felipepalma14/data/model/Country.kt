@@ -1,4 +1,4 @@
-package com.felipepalma14.domain.model
+package com.felipepalma14.data.model
 
 data class Country(
     val code: String, val name: String, val noCode: String,

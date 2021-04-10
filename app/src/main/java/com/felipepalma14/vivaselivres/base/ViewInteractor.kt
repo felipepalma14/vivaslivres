@@ -1,0 +1,3 @@
+package com.felipepalma14.vivaselivres.base
+
+interface ViewInteractor

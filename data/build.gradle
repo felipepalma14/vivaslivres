@@ -36,7 +36,6 @@ android {
 }
 
 dependencies {
-    implementation project(":domain")
     implementation Libs.kotlinStdlib
     implementation Libs.coreKtx
     implementation Libs.coroutinesAndroid

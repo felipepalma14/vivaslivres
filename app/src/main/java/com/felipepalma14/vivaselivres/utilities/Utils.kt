@@ -7,7 +7,7 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
-import com.felipepalma14.domain.model.Country
+import com.felipepalma14.data.model.Country
 
 object Utils {
 

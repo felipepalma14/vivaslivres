@@ -1,30 +1,149 @@
 package com.felipepalma14.data.repository
 
 import android.app.Activity
-import android.content.Context
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.felipepalma14.domain.model.Country
-import com.felipepalma14.domain.model.LogInFailedState
-import com.felipepalma14.domain.repository.LoginRepository
+import com.felipepalma14.data.model.Country
+import com.felipepalma14.data.model.LogInFailedState
 import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.android.scopes.ActivityRetainedScoped
 import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
+class LoginRepositoryImp : LoginRepository {
+
+    private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
+    //private lateinit var verificationId: String
+
+    private val verificationId: MutableLiveData<String> = MutableLiveData()
+
+    override fun getVerificationId(): MutableLiveData<String> {
+        return verificationId
+    }
+
+    private lateinit var phoneCallbacksListener:PhoneCallbacksListener
+
+    private val auth  = FirebaseAuth.getInstance()
+
+    override fun setPhoneCallbacksListener(listener: PhoneCallbacksListener) {
+        this.phoneCallbacksListener = listener
+    }
+
+    init {
+        auth.setLanguageCode(Locale.getDefault().language)
+    }
+
+    private val callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks =
+            object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                override fun onVerificationCompleted(phoneAuthCredential: PhoneAuthCredential) {
+                    val code = phoneAuthCredential.smsCode
+                    if (code != null) {
+                        phoneCallbacksListener.onVerificationCodeDetected(code)
+                    }
+                }
+
+                override fun onVerificationFailed(e: FirebaseException) {
+                    when (e) {
+                        is FirebaseAuthInvalidCredentialsException -> {
+                            // Invalid request
+                            phoneCallbacksListener.onVerificationFailed(e.message?:" ")
+                        }
+                        is FirebaseTooManyRequestsException -> {
+                            // The SMS quota for the project has been exceeded
+                            phoneCallbacksListener.onVerificationFailed(e.message?:" ")
+                        }
+                        else -> {
+                            phoneCallbacksListener.onVerificationFailed(e.message?:" ")
+                        }
+                    }
+                    Timber.d("FireBaseAuthProvider.onVerificationFailed e() ${e.message}")
+                }
+
+                override fun onCodeSent(
+                        s: String,
+                        forceResendingToken: PhoneAuthProvider.ForceResendingToken
+                ) {
+                    super.onCodeSent(s, forceResendingToken)
+                    verificationId.value = s
+                    resendToken = forceResendingToken
+                    phoneCallbacksListener.onCodeSent(s, forceResendingToken)
+                }
+            }
+
+    override fun sendVerificationCode(country: Country, phone: String, activity: Activity) {
+        val number = country.noCode + " " + phone
+        val options = PhoneAuthOptions.newBuilder(auth)
+                .setPhoneNumber(number)
+                .setTimeout(30L, TimeUnit.SECONDS)
+                .setActivity(activity)
+                .setCallbacks(callbacks)
+                .build()
+        PhoneAuthProvider.verifyPhoneNumber(options)
+    }
+
+    override fun verifyVerificationCode(code: String): PhoneAuthCredential {
+        return PhoneAuthProvider.getCredential(verificationId.value!!, code)
+    }
+
+    override fun resendCode(country: Country, phone: String, activity: Activity) {
+        val number = country.noCode + " " + phone
+        val options = PhoneAuthOptions.newBuilder(auth)
+                .setPhoneNumber(number)
+                .setTimeout(30L, TimeUnit.SECONDS)
+                .setActivity(activity)
+                .setCallbacks(callbacks)
+                .setForceResendingToken(resendToken)
+                .build()
+        PhoneAuthProvider.verifyPhoneNumber(options)
+    }
+
+    fun isUserVerified(): Boolean {
+        return auth.currentUser != null
+    }
+
+    override fun setMobile(country: Country, mobile: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getCredential(): LiveData<PhoneAuthCredential> {
+        TODO("Not yet implemented")
+    }
+
+    override fun setCredential(credential: PhoneAuthCredential) {
+        TODO("Not yet implemented")
+    }
+
+    override fun setVerificationCodeNull() {
+        TODO("Not yet implemented")
+    }
+
+    override fun getVerificationCode(): MutableLiveData<String> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getTaskResult(): LiveData<Task<AuthResult>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getFailed(): LiveData<LogInFailedState> {
+        TODO("Not yet implemented")
+    }
+
+    override fun clearOldAuth() {
+        TODO("Not yet implemented")
+    }
+
+}
+
+/*
 class LoginRepositoryImp @Inject constructor(
-    @ActivityRetainedScoped val activity: Activity,
-    @ApplicationContext val context: Context,
-    val firebaseAuth: FirebaseAuth
-): LoginRepository {
+        @ApplicationContext val context: Context,
+        @ActivityRetainedScoped val activity: Activity
+): LoginRepository
+{
 
     private val verificationId: MutableLiveData<String> = MutableLiveData()
 
@@ -33,6 +152,9 @@ class LoginRepositoryImp @Inject constructor(
     private val taskResult: MutableLiveData<Task<AuthResult>> = MutableLiveData()
 
     private val failedState: MutableLiveData<LogInFailedState> = MutableLiveData()
+
+
+    private val firebaseAuth = FirebaseAuth.getInstance()
 
     private lateinit var phoneCallbacksListener:PhoneCallbacksListener
 
@@ -52,6 +174,7 @@ class LoginRepositoryImp @Inject constructor(
 
                 Timber.v("onVerificationCompleted:$credential")
                 credential.value = phoneAuthCredential
+
                 Handler(Looper.getMainLooper()).postDelayed({
                     signInWithPhoneAuthCredential(phoneAuthCredential)
                 }, 1000)
@@ -143,7 +266,7 @@ class LoginRepositoryImp @Inject constructor(
         return failedState
     }
 }
-
+*/
 interface PhoneCallbacksListener {
     fun onVerificationCompleted()
     fun onVerificationCodeDetected(code: String)
